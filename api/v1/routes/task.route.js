@@ -1,7 +1,10 @@
 const express = require("express");
 const router = express.Router();
 const Task = require("../../../model/task.model");
+
 const paginationHelpers = require("../../../helpers/pagination");
+const searchHelper = require("../../../helpers/search");
+
 // const controller = require("../../controller/admin/role.controller");
 
 // [GET] /api/v1/tasks
@@ -13,6 +16,14 @@ router.get("/", async (req, res) => {
   if (req.query.status) {
     find.status = req.query.status;
   }
+
+  //SEARCH
+  const objectSearch = searchHelper(req.query);
+  if (req.query.keyword) {
+    find.title = objectSearch.regex;
+  }
+
+  //END SEARCH
 
   //PAGINATION
   let initPagination = {
