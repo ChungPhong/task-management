@@ -4,14 +4,22 @@ const Task = require("../../../model/task.model");
 
 // const controller = require("../../controller/admin/role.controller");
 
+// [GET] /api/v1/tasks
 router.get("/", async (req, res) => {
-  const tasks = await Task.find({
+  const find = {
     deleted: false,
-  });
-  console.log(tasks);
+  };
+
+  if (req.query.status) {
+    find.status = req.query.status;
+  }
+  
+  console.log(req.query);
+  const tasks = await Task.find(find);
   res.json(tasks);
 });
 
+// [GET] /api/v1/tasks/detail/:id
 router.get("/details/:id", async (req, res) => {
   try {
     const id = req.params.id;
@@ -19,7 +27,6 @@ router.get("/details/:id", async (req, res) => {
       deleted: false,
       _id: id,
     });
-    console.log(task);
     res.json(task);
   } catch (error) {
     res.json("Không tìm thấy trang web");
