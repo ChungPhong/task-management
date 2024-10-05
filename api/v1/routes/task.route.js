@@ -13,9 +13,15 @@ router.get("/", async (req, res) => {
   if (req.query.status) {
     find.status = req.query.status;
   }
-  
-  console.log(req.query);
-  const tasks = await Task.find(find);
+
+  //SORT
+  const sort = {};
+  if (req.query.sortKey && req.query.sortValue) {
+    sort[req.query.sortKey] = req.query.sortValue;
+  }
+  //END SORT
+
+  const tasks = await Task.find(find).sort(sort);
   res.json(tasks);
 });
 
