@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const Task = require("../../../model/task.model");
+const Task = require("../model/task.model");
 
 const controller = require("../controllers/task.controller");
 router.get("/", controller.index);

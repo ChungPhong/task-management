@@ -1,4 +1,4 @@
-const Task = require("../../../model/task.model");
+const Task = require("../model/task.model");
 
 const paginationHelpers = require("../../../helpers/pagination");
 const searchHelper = require("../../../helpers/search");

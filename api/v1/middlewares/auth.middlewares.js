@@ -1,4 +1,4 @@
-const User = require("../../../model/user.model");
+const User = require("../model/user.model");
 
 module.exports.requireAuth = async (req, res, next) => {
   if (req.headers.authorization) {

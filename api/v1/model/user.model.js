@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const generate = require("../helpers/generate");
+const generate = require("../../../helpers/generate");
 const customer = new mongoose.Schema(
   {
     fullName: String,
