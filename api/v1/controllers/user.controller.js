@@ -128,31 +128,6 @@ module.exports.otpPassword = async (req, res) => {
     message: "Xác thực thành công",
     token: token,
   });
-  // if (!user) {
-  //   res.json({
-  //     code: 400,
-  //     message: "Email không tồn tại",
-  //   });
-  //   return;
-  // }
-  // const otp = generateHelper.generateRandomNumber(6);
-  // const timeExpire = 5;
-  // const objectForgotPassword = {
-  //   email: email,
-  //   otp: otp,
-  //   expireAt: Date.now() + timeExpire * 60,
-  // };
-  // const forgotPassword = new ForgotPassword(objectForgotPassword);
-  // await forgotPassword.save();
-
-  // //Gửi mail
-  // const subject = "Mã OTP xác minh lấy lại mật khẩu";
-  // const html = `Mã OTP để lấy lại mật khẩu của bạn là <b>${otp}</b>`;
-  // sendMailHelper.sendMail(email, subject, html);
-  // res.json({
-  //   code: 200,
-  //   message: "Đã gửi mã OTP qua email!",
-  // });
 };
 
 // [POST] /api/v1/users/password/reset
@@ -182,5 +157,21 @@ module.exports.resetPassword = async (req, res) => {
   res.json({
     code: 200,
     message: "Đổi mật khẩu thành công",
+  });
+};
+
+// [GET] /api/v1/users/detail
+module.exports.detail = async (req, res) => {
+  const token = req.cookies.token;
+
+  const user = await User.findOne({
+    token: token,
+    deleted: false,
+  }).select("-password -token");
+
+  res.json({
+    code: 200,
+    message: "Thành công",
+    info: user,
   });
 };
